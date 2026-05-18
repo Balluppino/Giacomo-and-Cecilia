@@ -328,6 +328,9 @@ function setupGiftMemory() {
       return;
     }
 
+    const transitionDuration = 1250;
+    let isChangingPage = false;
+    let transitionTimer = null;
     let activeIndex = Math.max(
       0,
       pages.findIndex((page) => page.classList.contains("is-active"))
@@ -340,16 +343,55 @@ function setupGiftMemory() {
       });
     };
 
-    const showPage = (nextIndex, direction = "next") => {
-      activeIndex = (nextIndex + pages.length) % pages.length;
+    const setControlsDisabled = (isDisabled) => {
+      prevButton.disabled = isDisabled;
+      nextButton.disabled = isDisabled;
+    };
+
+    const showPage = (nextIndex, direction = "next", animate = true) => {
+      const normalizedIndex = (nextIndex + pages.length) % pages.length;
+
+      if (isChangingPage || (animate && normalizedIndex === activeIndex)) {
+        return;
+      }
+
       resetCards();
       carousel.dataset.memoryDirection = direction;
 
-      pages.forEach((page, pageIndex) => {
-        const isActive = pageIndex === activeIndex;
-        page.classList.toggle("is-active", isActive);
-        page.setAttribute("aria-hidden", String(!isActive));
-      });
+      if (!animate) {
+        activeIndex = normalizedIndex;
+
+        pages.forEach((page, pageIndex) => {
+          const isActive = pageIndex === activeIndex;
+          page.classList.toggle("is-active", isActive);
+          page.classList.remove("is-entering", "is-exiting");
+          page.setAttribute("aria-hidden", String(!isActive));
+        });
+
+        return;
+      }
+
+      isChangingPage = true;
+      setControlsDisabled(true);
+
+      const currentPage = pages[activeIndex];
+      const nextPage = pages[normalizedIndex];
+
+      currentPage.classList.add("is-exiting");
+      currentPage.setAttribute("aria-hidden", "true");
+      nextPage.classList.add("is-active", "is-entering");
+      nextPage.setAttribute("aria-hidden", "false");
+
+      const finishTransition = () => {
+        currentPage.classList.remove("is-active", "is-exiting");
+        nextPage.classList.remove("is-entering");
+        activeIndex = normalizedIndex;
+        isChangingPage = false;
+        setControlsDisabled(false);
+      };
+
+      window.clearTimeout(transitionTimer);
+      transitionTimer = window.setTimeout(finishTransition, transitionDuration);
     };
 
     memoryCards.forEach((card) => {
@@ -367,7 +409,7 @@ function setupGiftMemory() {
       showPage(activeIndex + 1, "next");
     });
 
-    showPage(activeIndex);
+    showPage(activeIndex, "next", false);
   });
 }
 

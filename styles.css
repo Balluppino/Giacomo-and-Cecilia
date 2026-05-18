@@ -1,7 +1,7 @@
 /* Richiamo locale del font principale */
 @font-face {
-  font-family: "Canela";
-  src: local("Canela"), local("Canela Regular");
+  font-family: "Albra";
+  src: local("Albra"), local("Albra Regular");
   font-display: swap;
 }
 
@@ -10,17 +10,17 @@
   --color-background: #f8f2e8;
   --color-surface: rgba(255, 252, 247, 0.8);
   --color-surface-strong: #fffaf2;
-  --color-text: #101010;
-  --color-text-soft: #5f5951;
-  --color-accent: #1f5eff;
-  --color-line: rgba(16, 16, 16, 0.14);
-  --color-line-strong: rgba(16, 16, 16, 0.85);
-  --shadow-soft: 0 20px 60px rgba(16, 16, 16, 0.08);
+  --color-text: #0047ab;
+  --color-text-soft: #0047ab;
+  --color-accent: #0047ab;
+  --color-line: rgba(0, 71, 171, 0.18);
+  --color-line-strong: rgba(0, 71, 171, 0.85);
+  --shadow-soft: 0 20px 60px rgba(0, 71, 171, 0.08);
   --radius-large: 2rem;
   --radius-medium: 1.5rem;
   --page-width: min(1120px, calc(100vw - 2rem));
-  --font-display: "Canela", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  --font-body: "Canela", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  --font-display: "Albra", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  --font-body: "Albra", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
 }
 
 /* Reset di base */
@@ -75,7 +75,7 @@ body::before {
   right: -8rem;
   width: 20rem;
   height: 20rem;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.06), transparent 70%);
+  background: radial-gradient(circle, rgba(0, 71, 171, 0.06), transparent 70%);
 }
 
 body::after {
@@ -83,7 +83,7 @@ body::after {
   left: -6rem;
   width: 18rem;
   height: 18rem;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.035), transparent 72%);
+  background: radial-gradient(circle, rgba(0, 71, 171, 0.035), transparent 72%);
 }
 
 img {
@@ -187,7 +187,7 @@ p {
   justify-content: center;
   gap: 0.75rem;
   line-height: 1;
-  color: #000000;
+  color: var(--color-text);
 }
 
 .site-nav__title {
@@ -265,7 +265,7 @@ p {
 }
 
 .menu-panel__label {
-  border: 1px solid rgba(16, 16, 16, 0.12);
+  border: 1px solid var(--color-line);
   border-radius: 999px;
   background: rgba(255, 250, 242, 0.76);
   letter-spacing: 0.06em;
@@ -278,7 +278,7 @@ p {
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: #000000;
+  color: var(--color-text);
   flex: 0 0 4rem;
   justify-content: flex-end;
 }
@@ -297,7 +297,7 @@ p {
   display: block;
   padding: 0.7rem 0;
   border-bottom: 0;
-  color: #000000;
+  color: var(--color-text);
   font-size: clamp(1.1rem, 3.1vw, 1.9rem);
   letter-spacing: -0.05em;
   text-align: left;
@@ -510,6 +510,7 @@ p {
 }
 
 .gift-memory-viewport {
+  position: relative;
   width: 100%;
   overflow: hidden;
 }
@@ -518,8 +519,10 @@ p {
   display: none;
 }
 
-.gift-memory-page.is-active {
-  animation: memoryPageIn 0.5s ease both;
+.gift-memory-page.is-exiting {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .gift-memory-card {
@@ -532,7 +535,7 @@ p {
 }
 
 .gift-memory-card:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid var(--color-accent);
   outline-offset: 0.28rem;
 }
 
@@ -554,18 +557,18 @@ p {
   inset: 0;
   display: grid;
   place-items: center;
-  border: 2px solid #000000;
+  border: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .gift-memory-card__face--back {
-  background: #000000;
+  background: var(--color-background);
 }
 
 .gift-memory-card__face--front {
-  background: #d8d1c6;
-  color: #000000;
+  background: var(--color-background);
+  color: var(--color-accent);
   transform: rotateY(180deg);
 }
 
@@ -594,59 +597,73 @@ p {
   border: 0;
   padding: 0;
   background: transparent;
-  color: #000000;
+  color: var(--color-accent);
   cursor: pointer;
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 4vw, 4rem);
+  font-size: clamp(3.4rem, 5.2vw, 5.4rem);
   line-height: 0.7;
+  transform: scaleX(0.65);
+  transform-origin: center;
 }
 
 .gift-memory-arrow:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid var(--color-accent);
   outline-offset: 0.25rem;
 }
 
-@keyframes memoryPageIn {
+.gift-memory-desktop[data-memory-direction="next"] .gift-memory-page.is-entering {
+  animation: memoryPageEnterNext 1.25s cubic-bezier(0.18, 0.78, 0.16, 1) both;
+}
+
+.gift-memory-desktop[data-memory-direction="next"] .gift-memory-page.is-exiting {
+  animation: memoryPageExitNext 1.25s cubic-bezier(0.18, 0.78, 0.16, 1) both;
+}
+
+.gift-memory-desktop[data-memory-direction="prev"] .gift-memory-page.is-entering {
+  animation: memoryPageEnterPrev 1.25s cubic-bezier(0.18, 0.78, 0.16, 1) both;
+}
+
+.gift-memory-desktop[data-memory-direction="prev"] .gift-memory-page.is-exiting {
+  animation: memoryPageExitPrev 1.25s cubic-bezier(0.18, 0.78, 0.16, 1) both;
+}
+
+@keyframes memoryPageEnterNext {
   from {
-    opacity: 0;
-    transform: translateY(0.8rem);
+    transform: translateX(105%);
   }
 
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.gift-memory-desktop[data-memory-direction="next"] .gift-memory-page.is-active {
-  animation: memoryPageNext 1.45s cubic-bezier(0.16, 0.65, 0.18, 1) both;
-}
-
-.gift-memory-desktop[data-memory-direction="prev"] .gift-memory-page.is-active {
-  animation: memoryPagePrev 1.45s cubic-bezier(0.16, 0.65, 0.18, 1) both;
-}
-
-@keyframes memoryPageNext {
-  from {
-    opacity: 0;
-    transform: translateX(7rem);
-  }
-
-  to {
-    opacity: 1;
     transform: translateX(0);
   }
 }
 
-@keyframes memoryPagePrev {
+@keyframes memoryPageExitNext {
   from {
-    opacity: 0;
-    transform: translateX(-7rem);
+    transform: translateX(0);
   }
 
   to {
-    opacity: 1;
+    transform: translateX(-105%);
+  }
+}
+
+@keyframes memoryPageEnterPrev {
+  from {
+    transform: translateX(-105%);
+  }
+
+  to {
     transform: translateX(0);
+  }
+}
+
+@keyframes memoryPageExitPrev {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(105%);
   }
 }
 
@@ -701,7 +718,7 @@ p {
 }
 
 .gift-stack-card:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid var(--color-accent);
   outline-offset: 0.2rem;
 }
 
@@ -846,7 +863,7 @@ p {
 }
 
 .story-card--highlight {
-  background: #111111;
+  background: var(--color-accent);
   color: #f8f2e8;
 }
 
@@ -905,7 +922,7 @@ p {
   min-height: 3.2rem;
   padding: 0.85rem 1.25rem;
   border-radius: 999px;
-  background: #111111;
+  background: var(--color-accent);
   color: #f8f2e8;
   display: inline-flex;
   align-items: center;
@@ -938,7 +955,7 @@ p {
 .rsvp-form textarea {
   width: 100%;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(16, 16, 16, 0.16);
+  border: 1px solid var(--color-line);
   border-radius: 1.1rem;
   background: rgba(255, 255, 255, 0.56);
   color: var(--color-text);
@@ -1175,7 +1192,8 @@ p {
     margin-top: clamp(2.4rem, 5vw, 4.2rem);
   }
 
-  .gift-memory-page.is-active {
+  .gift-memory-page.is-active,
+  .gift-memory-page.is-exiting {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(1rem, 2vw, 1.8rem);
@@ -1368,7 +1386,8 @@ p {
     margin-top: clamp(2rem, 4vw, 3.2rem);
   }
 
-  .gift-memory-page.is-active {
+  .gift-memory-page.is-active,
+  .gift-memory-page.is-exiting {
     gap: clamp(0.8rem, 1.6vw, 1.35rem);
   }
 
@@ -1426,7 +1445,7 @@ p {
     width: min(100%, 23rem);
     height: 12.8rem;
     margin: 0 auto;
-    border: 1px solid rgba(16, 16, 16, 0.85);
+    border: 1px solid var(--color-line-strong);
     cursor: pointer;
     transform: translateY(var(--stack-shift));
     transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
@@ -1437,7 +1456,7 @@ p {
   }
 
   .gift-stack-mobile[data-stack-open="true"] .gift-stack-card.is-active {
-    box-shadow: 0 22px 45px rgba(16, 16, 16, 0.16);
+    box-shadow: 0 22px 45px rgba(0, 71, 171, 0.16);
   }
 
   .home-hero {
