@@ -1,2 +1,2 @@
-# Giacomo-e-Cecilia
-Official wedding website of Giacomo e Cecilia
+# Cecilia and Giacomo
+Official wedding website of Cecilia and Giacomo.
