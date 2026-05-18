@@ -454,8 +454,7 @@ p {
   min-height: 100dvh;
 }
 
-.gift-desktop-hero,
-.gift-stack-desktop {
+.gift-desktop-hero {
   display: none;
 }
 
@@ -504,6 +503,151 @@ p {
   width: 100%;
   min-height: 22rem;
   background: #111111;
+}
+
+.gift-memory-desktop {
+  display: none;
+}
+
+.gift-memory-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.gift-memory-page {
+  display: none;
+}
+
+.gift-memory-page.is-active {
+  animation: memoryPageIn 0.5s ease both;
+}
+
+.gift-memory-card {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1200px;
+}
+
+.gift-memory-card:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 0.28rem;
+}
+
+.gift-memory-card__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.45 / 1;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.16, 1);
+}
+
+.gift-memory-card.is-flipped .gift-memory-card__inner {
+  transform: rotateY(180deg);
+}
+
+.gift-memory-card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 2px solid #000000;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.gift-memory-card__face--back {
+  background: #000000;
+}
+
+.gift-memory-card__face--front {
+  background: #d8d1c6;
+  color: #000000;
+  transform: rotateY(180deg);
+}
+
+.gift-memory-card__logo {
+  width: min(38%, 6.5rem);
+  height: auto;
+  display: block;
+}
+
+.gift-memory-card__placeholder {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 2.2rem);
+  letter-spacing: 0.16em;
+}
+
+.gift-memory-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.8rem, 4vw, 3.2rem);
+  margin-top: clamp(1.2rem, 2.2vw, 1.8rem);
+}
+
+.gift-memory-arrow {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #000000;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 0.7;
+}
+
+.gift-memory-arrow:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 0.25rem;
+}
+
+@keyframes memoryPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gift-memory-desktop[data-memory-direction="next"] .gift-memory-page.is-active {
+  animation: memoryPageNext 1.45s cubic-bezier(0.16, 0.65, 0.18, 1) both;
+}
+
+.gift-memory-desktop[data-memory-direction="prev"] .gift-memory-page.is-active {
+  animation: memoryPagePrev 1.45s cubic-bezier(0.16, 0.65, 0.18, 1) both;
+}
+
+@keyframes memoryPageNext {
+  from {
+    opacity: 0;
+    transform: translateX(7rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes memoryPagePrev {
+  from {
+    opacity: 0;
+    transform: translateX(-7rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .gift-mobile-intro {
@@ -1001,7 +1145,7 @@ p {
   .gift-desktop-notes p {
     font-size: 1.35rem;
     line-height: 1.42;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .gift-desktop-photo {
@@ -1016,40 +1160,25 @@ p {
   .gift-desktop-notes {
     grid-column: 1 / -1;
     grid-row: 4;
-    max-width: none;
-  }
-
-  .gift-stack-desktop {
-    display: grid;
-    justify-items: center;
-    padding-top: 1.2rem;
-    padding-bottom: 1rem;
-  }
-
-  .gift-stack-desktop .gift-stack-card {
-    --stack-shift: 0px;
-    position: relative;
-    display: block;
-    width: min(100%, 31rem);
-    height: 17.5rem;
-    margin: 0 auto;
-    border: 1px solid rgba(16, 16, 16, 0.85);
-    cursor: pointer;
-    transform: translateY(var(--stack-shift));
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
-  }
-
-  .gift-stack-desktop .gift-stack-card + .gift-stack-card {
-    margin-top: -11.4rem;
-  }
-
-  .gift-stack-desktop[data-stack-open="true"] .gift-stack-card.is-active {
-    box-shadow: 0 22px 45px rgba(16, 16, 16, 0.16);
+    max-width: 100%;
+    min-width: 0;
   }
 
   .gift-mobile-intro,
   .gift-stack-mobile {
     display: none;
+  }
+
+  .gift-memory-desktop {
+    display: block;
+    width: 100%;
+    margin-top: clamp(2.4rem, 5vw, 4.2rem);
+  }
+
+  .gift-memory-page.is-active {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.8rem);
   }
 
   .details-grid,
@@ -1217,7 +1346,7 @@ p {
   .gift-desktop-notes p {
     font-size: 1.18rem;
     line-height: 1.38;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .gift-desktop-photo {
@@ -1231,21 +1360,18 @@ p {
   .gift-desktop-notes {
     grid-column: 1 / -1;
     grid-row: 4;
-    max-width: none;
+    max-width: 100%;
+    min-width: 0;
   }
 
-  .gift-stack-desktop {
-    padding-top: 0.9rem;
+  .gift-memory-desktop {
+    margin-top: clamp(2rem, 4vw, 3.2rem);
   }
 
-  .gift-stack-desktop .gift-stack-card {
-    width: min(100%, 26rem);
-    height: 14.8rem;
+  .gift-memory-page.is-active {
+    gap: clamp(0.8rem, 1.6vw, 1.35rem);
   }
 
-  .gift-stack-desktop .gift-stack-card + .gift-stack-card {
-    margin-top: -9.6rem;
-  }
 }
 
 /* Ottimizzazioni mobile */
@@ -1287,6 +1413,10 @@ p {
     display: grid;
     justify-items: center;
     padding-bottom: 1rem;
+  }
+
+  .gift-memory-desktop {
+    display: none;
   }
 
   .gift-stack-card {

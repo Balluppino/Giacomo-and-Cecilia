@@ -211,7 +211,7 @@ function setupRsvpForm() {
 
 // Apertura a fisarmonica dei placeholder lista nozze
 function setupGiftStack() {
-  const giftStacks = Array.from(document.querySelectorAll("[data-gift-stack]"));
+  const giftStacks = Array.from(document.querySelectorAll(".gift-stack-mobile[data-gift-stack]"));
 
   if (!giftStacks.length) {
     return;
@@ -310,6 +310,67 @@ function setupGiftStack() {
   });
 }
 
+// Flip delle carte memory desktop lista nozze
+function setupGiftMemory() {
+  const memoryCarousels = Array.from(document.querySelectorAll("[data-memory-carousel]"));
+
+  if (!memoryCarousels.length) {
+    return;
+  }
+
+  memoryCarousels.forEach((carousel) => {
+    const pages = Array.from(carousel.querySelectorAll("[data-memory-page]"));
+    const memoryCards = Array.from(carousel.querySelectorAll("[data-memory-card]"));
+    const prevButton = carousel.querySelector("[data-memory-prev]");
+    const nextButton = carousel.querySelector("[data-memory-next]");
+
+    if (!pages.length || !memoryCards.length || !prevButton || !nextButton) {
+      return;
+    }
+
+    let activeIndex = Math.max(
+      0,
+      pages.findIndex((page) => page.classList.contains("is-active"))
+    );
+
+    const resetCards = () => {
+      memoryCards.forEach((card) => {
+        card.classList.remove("is-flipped");
+        card.setAttribute("aria-pressed", "false");
+      });
+    };
+
+    const showPage = (nextIndex, direction = "next") => {
+      activeIndex = (nextIndex + pages.length) % pages.length;
+      resetCards();
+      carousel.dataset.memoryDirection = direction;
+
+      pages.forEach((page, pageIndex) => {
+        const isActive = pageIndex === activeIndex;
+        page.classList.toggle("is-active", isActive);
+        page.setAttribute("aria-hidden", String(!isActive));
+      });
+    };
+
+    memoryCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const isFlipped = card.classList.toggle("is-flipped");
+        card.setAttribute("aria-pressed", String(isFlipped));
+      });
+    });
+
+    prevButton.addEventListener("click", () => {
+      showPage(activeIndex - 1, "prev");
+    });
+
+    nextButton.addEventListener("click", () => {
+      showPage(activeIndex + 1, "next");
+    });
+
+    showPage(activeIndex);
+  });
+}
+
 // Avvio generale della pagina
 document.addEventListener("DOMContentLoaded", () => {
   createLocalIcons();
@@ -319,4 +380,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
   setupRsvpForm();
   setupGiftStack();
+  setupGiftMemory();
 });
