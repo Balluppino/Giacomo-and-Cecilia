@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (sessionStorage.getItem("pageTransitionPending")) {
+        document.documentElement.classList.add("is-loading-transition");
+      }
+    </script>
+    <title>Giacomo & Cecilia | Cerimonia</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="Cerimonia">
+    <!-- Barra di navigazione principale -->
+    <header class="site-nav">
+      <a class="site-nav__title" href="cerimonia.html">Cerimonia</a>
+      <button class="site-nav__toggle" type="button" data-menu-toggle aria-label="Apri il menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <!-- Menu a comparsa -->
+    <aside class="menu-panel" aria-hidden="true" data-menu-panel>
+      <div class="menu-panel__top">
+        <div class="menu-panel__spacer" aria-hidden="true"></div>
+        <button class="menu-panel__close" type="button" data-menu-close aria-label="Chiudi il menu">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <nav class="menu-panel__nav" aria-label="Navigazione principale">
+        <a data-transition-link href="index.html">Home</a>
+        <a class="is-current" aria-current="page" href="cerimonia.html">Cerimonia</a>
+        <a data-transition-link href="ricevimento.html">Ricevimento</a>
+        <a data-transition-link href="rsvp.html">RSVP</a>
+        <a data-transition-link href="lista-nozze.html">Lista nozze</a>
+      </nav>
+    </aside>
+
+    <!-- Transizione tra pagine -->
+    <div class="page-transition" aria-hidden="true" data-page-transition>
+      <img src="logo_gizzi.png" alt="Logo Gizzi" class="page-transition__logo" />
+    </div>
+
+    <main class="page-shell home-shell ceremony-shell">
+      <!-- Hero principale della cerimonia -->
+      <section class="home-hero ceremony-hero reveal">
+        <h1 class="home-title ceremony-title"><span>BASILICA DI</span><span>SAN SIMPLICIANO</span></h1>
+        <p class="home-date ceremony-date ceremony-date--desktop">
+          <span>19 settembre 2026</span>
+          <span>ore 11.00</span>
+        </p>
+
+        <!-- Placeholder della foto della cerimonia -->
+        <div class="home-video ceremony-video" aria-label="Placeholder foto cerimonia">
+          <span>FOTO</span>
+        </div>
+
+        <p class="home-date ceremony-date ceremony-date--mobile">
+          <span>19 settembre 2026</span>
+          <span>ore 11.00</span>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

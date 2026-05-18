@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (sessionStorage.getItem("pageTransitionPending")) {
+        document.documentElement.classList.add("is-loading-transition");
+      }
+    </script>
+    <title>Giacomo & Cecilia | Lista nozze</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="Lista nozze">
+    <!-- Barra di navigazione principale -->
+    <header class="site-nav">
+      <a class="site-nav__title" href="lista-nozze.html">Lista nozze</a>
+      <button class="site-nav__toggle" type="button" data-menu-toggle aria-label="Apri il menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <!-- Menu a comparsa -->
+    <aside class="menu-panel" aria-hidden="true" data-menu-panel>
+      <div class="menu-panel__top">
+        <div class="menu-panel__spacer" aria-hidden="true"></div>
+        <button class="menu-panel__close" type="button" data-menu-close aria-label="Chiudi il menu">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <nav class="menu-panel__nav" aria-label="Navigazione principale">
+        <a data-transition-link href="index.html">Home</a>
+        <a data-transition-link href="cerimonia.html">Cerimonia</a>
+        <a data-transition-link href="ricevimento.html">Ricevimento</a>
+        <a data-transition-link href="rsvp.html">RSVP</a>
+        <a class="is-current" aria-current="page" href="lista-nozze.html">Lista nozze</a>
+      </nav>
+    </aside>
+
+    <!-- Transizione tra pagine -->
+    <div class="page-transition" aria-hidden="true" data-page-transition>
+      <img src="logo_gizzi.png" alt="Logo Gizzi" class="page-transition__logo" />
+    </div>
+
+    <main class="page-shell gift-shell">
+      <!-- Hero desktop della lista nozze -->
+      <section class="gift-desktop-hero reveal">
+        <div class="gift-desktop-copy">
+          <a class="gift-desktop-title" href="https://www.rinascente.it/" target="_blank" rel="noreferrer">RINASCENTE</a>
+
+          <div class="gift-desktop-meta">
+            <p>Codice lista: 123</p>
+            <p>Password: 123</p>
+          </div>
+        </div>
+
+        <div class="gift-desktop-photo" aria-label="Placeholder foto lista nozze"></div>
+
+        <div class="gift-desktop-notes gift-notes">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          <p>IBAN: IT00X0000000000000000000000</p>
+          <p>Giacomo Rizzo</p>
+          <p>Causale: Regalo di nozze</p>
+        </div>
+      </section>
+
+      <!-- Introduzione mobile della lista nozze -->
+      <section class="gift-mobile-intro reveal">
+        <div class="gift-mobile-panel gift-mobile-panel--text">
+          <a class="gift-mobile-link" href="https://www.rinascente.it/" target="_blank" rel="noreferrer">RINASCENTE</a>
+          <p>Codice lista: 123</p>
+          <p>Password: 123</p>
+        </div>
+
+        <div class="gift-mobile-panel gift-mobile-panel--photo" aria-label="Placeholder foto lista nozze"></div>
+
+        <div class="gift-mobile-panel gift-mobile-panel--text gift-notes">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          <p>IBAN: IT00X0000000000000000000000</p>
+          <p>Giacomo Rizzo</p>
+          <p>Causale: Regalo di nozze</p>
+        </div>
+      </section>
+
+      <!-- Stack mobile dei placeholder regalo -->
+      <section class="gift-stack-mobile reveal" data-gift-stack>
+        <button class="gift-stack-card gift-stack-card--01" type="button" data-gift-card aria-label="Placeholder regalo 1"></button>
+        <button class="gift-stack-card gift-stack-card--02" type="button" data-gift-card aria-label="Placeholder regalo 2"></button>
+        <button class="gift-stack-card gift-stack-card--03" type="button" data-gift-card aria-label="Placeholder regalo 3"></button>
+        <button class="gift-stack-card gift-stack-card--04" type="button" data-gift-card aria-label="Placeholder regalo 4"></button>
+        <button class="gift-stack-card gift-stack-card--05" type="button" data-gift-card aria-label="Placeholder regalo 5"></button>
+        <button class="gift-stack-card gift-stack-card--06" type="button" data-gift-card aria-label="Placeholder regalo 6"></button>
+        <button class="gift-stack-card gift-stack-card--07" type="button" data-gift-card aria-label="Placeholder regalo 7"></button>
+        <button class="gift-stack-card gift-stack-card--08" type="button" data-gift-card aria-label="Placeholder regalo 8"></button>
+        <button class="gift-stack-card gift-stack-card--09" type="button" data-gift-card aria-label="Placeholder regalo 9"></button>
+        <button class="gift-stack-card gift-stack-card--10" type="button" data-gift-card aria-label="Placeholder regalo 10"></button>
+      </section>
+
+      <!-- Stack desktop dei placeholder regalo -->
+      <section class="gift-stack-desktop reveal" data-gift-stack>
+        <button class="gift-stack-card gift-stack-card--01" type="button" data-gift-card aria-label="Placeholder regalo 1"></button>
+        <button class="gift-stack-card gift-stack-card--02" type="button" data-gift-card aria-label="Placeholder regalo 2"></button>
+        <button class="gift-stack-card gift-stack-card--03" type="button" data-gift-card aria-label="Placeholder regalo 3"></button>
+        <button class="gift-stack-card gift-stack-card--04" type="button" data-gift-card aria-label="Placeholder regalo 4"></button>
+        <button class="gift-stack-card gift-stack-card--05" type="button" data-gift-card aria-label="Placeholder regalo 5"></button>
+        <button class="gift-stack-card gift-stack-card--06" type="button" data-gift-card aria-label="Placeholder regalo 6"></button>
+        <button class="gift-stack-card gift-stack-card--07" type="button" data-gift-card aria-label="Placeholder regalo 7"></button>
+        <button class="gift-stack-card gift-stack-card--08" type="button" data-gift-card aria-label="Placeholder regalo 8"></button>
+        <button class="gift-stack-card gift-stack-card--09" type="button" data-gift-card aria-label="Placeholder regalo 9"></button>
+        <button class="gift-stack-card gift-stack-card--10" type="button" data-gift-card aria-label="Placeholder regalo 10"></button>
+      </section>
+    </main>
+  </body>
+</html>

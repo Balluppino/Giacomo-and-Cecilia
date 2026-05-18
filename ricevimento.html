@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (sessionStorage.getItem("pageTransitionPending")) {
+        document.documentElement.classList.add("is-loading-transition");
+      }
+    </script>
+    <title>Giacomo & Cecilia | Ricevimento</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="Ricevimento">
+    <!-- Barra di navigazione principale -->
+    <header class="site-nav">
+      <a class="site-nav__title" href="ricevimento.html">Ricevimento</a>
+      <button class="site-nav__toggle" type="button" data-menu-toggle aria-label="Apri il menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <!-- Menu a comparsa -->
+    <aside class="menu-panel" aria-hidden="true" data-menu-panel>
+      <div class="menu-panel__top">
+        <div class="menu-panel__spacer" aria-hidden="true"></div>
+        <button class="menu-panel__close" type="button" data-menu-close aria-label="Chiudi il menu">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <nav class="menu-panel__nav" aria-label="Navigazione principale">
+        <a data-transition-link href="index.html">Home</a>
+        <a data-transition-link href="cerimonia.html">Cerimonia</a>
+        <a class="is-current" aria-current="page" href="ricevimento.html">Ricevimento</a>
+        <a data-transition-link href="rsvp.html">RSVP</a>
+        <a data-transition-link href="lista-nozze.html">Lista nozze</a>
+      </nav>
+    </aside>
+
+    <!-- Transizione tra pagine -->
+    <div class="page-transition" aria-hidden="true" data-page-transition>
+      <img src="logo_gizzi.png" alt="Logo Gizzi" class="page-transition__logo" />
+    </div>
+
+    <main class="page-shell home-shell reception-shell">
+      <!-- Hero principale del ricevimento -->
+      <section class="home-hero reception-hero reveal">
+        <h1 class="home-title reception-title"><span>VILLA RICOTTI</span><span>LA VALERA</span></h1>
+        <a
+          class="home-date reception-date reception-date--desktop reception-map-link"
+          href="https://maps.app.goo.gl/e5C9prskQMiFcWTo6"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Apri la posizione del ricevimento su Google Maps"
+        >
+          <span>Località Valera,</span>
+          <span>Via Salvador Allende 7, Arese</span>
+        </a>
+
+        <!-- Placeholder della foto del ricevimento -->
+        <div class="home-video reception-video" aria-label="Placeholder foto ricevimento">
+          <span>FOTO</span>
+        </div>
+
+        <a
+          class="home-date reception-date reception-date--mobile reception-map-link"
+          href="https://maps.app.goo.gl/e5C9prskQMiFcWTo6"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Apri la posizione del ricevimento su Google Maps"
+        >
+          <span>Località Valera,</span>
+          <span>Via Salvador Allende 7, Arese</span>
+        </a>
+      </section>
+    </main>
+  </body>
+</html>
