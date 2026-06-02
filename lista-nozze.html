@@ -4,9 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
       if (sessionStorage.getItem("pageTransitionPending")) {
         document.documentElement.classList.add("is-loading-transition");
       }
+
+      const resetScrollPosition = () => {
+        window.scrollTo(0, 0);
+        window.requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+        });
+      };
+
+      window.addEventListener("pageshow", resetScrollPosition);
     </script>
     <title>Giacomo e Cecilia | Lista nozze</title>
     <link rel="stylesheet" href="styles.css" />
@@ -47,21 +60,34 @@
       <!-- Hero desktop della lista nozze -->
       <section class="gift-desktop-hero reveal">
         <div class="gift-desktop-copy">
-          <a class="gift-desktop-title" href="https://www.rinascente.it/" target="_blank" rel="noreferrer">RINASCENTE</a>
+          <h1 class="gift-desktop-title">LISTA NOZZE</h1>
 
-          <div class="gift-desktop-meta">
-            <p>Codice lista: 123</p>
-            <p>Password: 123</p>
+          <div class="gift-desktop-notes gift-notes">
+            <p>
+              La vostra presenza è il regalo più bello!
+            </p>
+            <p>
+              Ma se vi va di aiutarci a rendere la nostra casa ancora più speciale, cliccate sul logo RINASCENTE e scoprite la nostra lista desideri.
+              Se invece preferite contribuire ad altri regali, girate le carte del memory, scoprite cosa ci serve e scrivetelo nella causale.
+            </p>
           </div>
         </div>
 
-        <div class="gift-desktop-photo" aria-label="Placeholder foto lista nozze"></div>
+        <img class="gift-desktop-photo" src="lista nozze.jpeg" alt="Lista nozze" />
 
-        <div class="gift-desktop-notes gift-notes">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-          <p>IBAN: IT00X0000000000000000000000</p>
-          <p>Giacomo Rizzo</p>
-          <p>Causale: Regalo di nozze</p>
+        <a
+          class="gift-desktop-brand"
+          href="https://www.rinascentelistanozze.it/ListaNozze/it/AreaDonatori"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Apri la lista nozze Rinascente"
+        >
+          <img src="logo rinascente.png" alt="Rinascente" />
+        </a>
+
+        <div class="gift-desktop-list-access">
+          <p>Codice lista: 451019950</p>
+          <p>Password: Cecilia&amp;Giacomo26!</p>
         </div>
       </section>
 
@@ -71,49 +97,49 @@
           <div class="gift-memory-page is-active" data-memory-page aria-hidden="false">
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 1">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="bici.png" alt="Bici" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 2">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="panda.png" alt="Panda" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 3">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="lampada papero.png" alt="Lampada papero" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 4">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="borsa.png" alt="Borsa" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 5">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="casa.png" alt="Casa" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 6">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image gift-memory-card__image--parapendio" src="parapendio.png" alt="Parapendio" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 7">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
-                <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image gift-memory-card__image--cassetta" src="cassetta attrezzi.png" alt="Cassetta attrezzi" /></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 8">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
@@ -122,49 +148,49 @@
           <div class="gift-memory-page" data-memory-page aria-hidden="true">
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 9">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 10">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 11">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 12">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 13">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 14">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 15">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 16">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
@@ -173,49 +199,49 @@
           <div class="gift-memory-page" data-memory-page aria-hidden="true">
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 17">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 18">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 19">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 20">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 21">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 22">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 23">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
             <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 24">
               <span class="gift-memory-card__inner">
-                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo_gizzi.png" alt="" /></span>
+                <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
                 <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
               </span>
             </button>
@@ -228,36 +254,98 @@
         </div>
       </section>
 
+      <!-- Coordinate regalo desktop -->
+      <section class="gift-desktop-transfer reveal" aria-label="Coordinate regalo lista nozze">
+        <p>IBAN: IT58X0306234210000003172690</p>
+        <p>Beneficiario: Giacomo Rizzo</p>
+        <p>Causale: Regalo di nozze</p>
+      </section>
+
       <!-- Introduzione mobile della lista nozze -->
       <section class="gift-mobile-intro reveal">
-        <div class="gift-mobile-panel gift-mobile-panel--text">
-          <a class="gift-mobile-link" href="https://www.rinascente.it/" target="_blank" rel="noreferrer">RINASCENTE</a>
-          <p>Codice lista: 123</p>
-          <p>Password: 123</p>
-        </div>
+        <h1 class="gift-mobile-title">LISTA NOZZE</h1>
 
-        <div class="gift-mobile-panel gift-mobile-panel--photo" aria-label="Placeholder foto lista nozze"></div>
+        <img class="gift-mobile-photo" src="lista nozze.jpeg" alt="Lista nozze" />
 
         <div class="gift-mobile-panel gift-mobile-panel--text gift-notes">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-          <p>IBAN: IT00X0000000000000000000000</p>
-          <p>Giacomo Rizzo</p>
-          <p>Causale: Regalo di nozze</p>
+          <p>La vostra presenza è il regalo più bello!</p>
+          <p>
+            Ma se vi va di aiutarci a rendere la nostra casa ancora più speciale, cliccate sul logo RINASCENTE e scoprite la nostra lista desideri.
+            Se invece preferite contribuire ad altri regali, girate le carte del memory, scoprite cosa ci serve e scrivetelo nella causale.
+          </p>
+        </div>
+
+        <div class="gift-mobile-list-access">
+          <a
+            class="gift-mobile-brand"
+            href="https://www.rinascentelistanozze.it/ListaNozze/it/AreaDonatori"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Apri la lista nozze Rinascente"
+          >
+            <img src="logo rinascente.png" alt="Rinascente" />
+          </a>
+          <p>Codice lista: 451019950</p>
+          <p>Password: Cecilia&amp;Giacomo26!</p>
         </div>
       </section>
 
-      <!-- Stack mobile dei placeholder regalo -->
-      <section class="gift-stack-mobile reveal" data-gift-stack>
-        <button class="gift-stack-card gift-stack-card--01" type="button" data-gift-card aria-label="Placeholder regalo 1"></button>
-        <button class="gift-stack-card gift-stack-card--02" type="button" data-gift-card aria-label="Placeholder regalo 2"></button>
-        <button class="gift-stack-card gift-stack-card--03" type="button" data-gift-card aria-label="Placeholder regalo 3"></button>
-        <button class="gift-stack-card gift-stack-card--04" type="button" data-gift-card aria-label="Placeholder regalo 4"></button>
-        <button class="gift-stack-card gift-stack-card--05" type="button" data-gift-card aria-label="Placeholder regalo 5"></button>
-        <button class="gift-stack-card gift-stack-card--06" type="button" data-gift-card aria-label="Placeholder regalo 6"></button>
-        <button class="gift-stack-card gift-stack-card--07" type="button" data-gift-card aria-label="Placeholder regalo 7"></button>
-        <button class="gift-stack-card gift-stack-card--08" type="button" data-gift-card aria-label="Placeholder regalo 8"></button>
-        <button class="gift-stack-card gift-stack-card--09" type="button" data-gift-card aria-label="Placeholder regalo 9"></button>
-        <button class="gift-stack-card gift-stack-card--10" type="button" data-gift-card aria-label="Placeholder regalo 10"></button>
+      <!-- Memory mobile dei placeholder regalo -->
+      <section class="gift-memory-mobile reveal" aria-label="Placeholder regali lista nozze">
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 1">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="bici.png" alt="Bici" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 2">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="panda.png" alt="Panda" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 3">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="lampada papero.png" alt="Lampada papero" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 4">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="borsa.png" alt="Borsa" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 5">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image" src="casa.png" alt="Casa" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 6">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image gift-memory-card__image--parapendio" src="parapendio.png" alt="Parapendio" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 7">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo" src="logo ceci 2.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><img class="gift-memory-card__image gift-memory-card__image--cassetta" src="cassetta attrezzi.png" alt="Cassetta attrezzi" /></span>
+          </span>
+        </button>
+        <button class="gift-memory-card" type="button" data-memory-card aria-pressed="false" aria-label="Mostra placeholder regalo 8">
+          <span class="gift-memory-card__inner">
+            <span class="gift-memory-card__face gift-memory-card__face--back"><img class="gift-memory-card__logo gift-memory-card__logo--gizzi" src="logo_gizzi.png" alt="" /></span>
+            <span class="gift-memory-card__face gift-memory-card__face--front"><span class="gift-memory-card__placeholder">FOTO</span></span>
+          </span>
+        </button>
+      </section>
+
+      <section class="gift-mobile-transfer reveal" aria-label="Coordinate regalo lista nozze">
+        <p>IBAN: IT58X0306234210000003172690</p>
+        <p>Beneficiario: Giacomo Rizzo</p>
+        <p>Causale: Regalo di nozze</p>
       </section>
 
     </main>

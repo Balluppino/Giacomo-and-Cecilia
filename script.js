@@ -15,6 +15,101 @@ const localLucideIcons = {
   `,
 };
 
+const transitionLogos = [
+  {
+    src: "logo_gizzi.png",
+    alt: "Logo Gizzi",
+  },
+  {
+    src: "logo ceci 2.png",
+    alt: "Logo Ceci",
+  },
+];
+
+const transitionStorageKeys = {
+  pending: "pageTransitionPending",
+  activeLogoIndex: "pageTransitionLogoIndex",
+  nextLogoIndex: "pageTransitionNextLogoIndex",
+};
+
+function normalizeTransitionLogoIndex(value) {
+  const parsedValue = Number.parseInt(value, 10);
+
+  if (Number.isNaN(parsedValue)) {
+    return 0;
+  }
+
+  return ((parsedValue % transitionLogos.length) + transitionLogos.length) % transitionLogos.length;
+}
+
+function getNextTransitionLogoIndex() {
+  return normalizeTransitionLogoIndex(sessionStorage.getItem(transitionStorageKeys.nextLogoIndex));
+}
+
+function setNextTransitionLogoIndex(index) {
+  sessionStorage.setItem(transitionStorageKeys.nextLogoIndex, String(normalizeTransitionLogoIndex(index)));
+}
+
+function setTransitionLogo(logoElement, logoIndex) {
+  if (!logoElement) {
+    return 0;
+  }
+
+  const normalizedIndex = normalizeTransitionLogoIndex(logoIndex);
+  const logoConfig = transitionLogos[normalizedIndex];
+
+  logoElement.src = logoConfig.src;
+  logoElement.alt = logoConfig.alt;
+
+  return normalizedIndex;
+}
+
+function waitForTransitionLogo(logoElement) {
+  if (!logoElement) {
+    return Promise.resolve();
+  }
+
+  const imageReady = logoElement.complete && logoElement.naturalWidth > 0;
+  const decodeLogo = () => {
+    if (typeof logoElement.decode !== "function") {
+      return Promise.resolve();
+    }
+
+    return logoElement.decode().catch(() => {});
+  };
+
+  if (imageReady) {
+    return decodeLogo();
+  }
+
+  return new Promise((resolve) => {
+    const finish = () => {
+      logoElement.removeEventListener("load", finish);
+      logoElement.removeEventListener("error", finish);
+      resolve();
+    };
+
+    logoElement.addEventListener("load", finish, { once: true });
+    logoElement.addEventListener("error", finish, { once: true });
+  }).then(decodeLogo);
+}
+
+function restoreTransitionLogo(logoElement) {
+  if (!logoElement) {
+    return 0;
+  }
+
+  if (sessionStorage.getItem(transitionStorageKeys.pending)) {
+    const activeLogoIndex = sessionStorage.getItem(transitionStorageKeys.activeLogoIndex);
+
+    if (activeLogoIndex !== null) {
+      return setTransitionLogo(logoElement, activeLogoIndex);
+    }
+  }
+
+  return setTransitionLogo(logoElement, getNextTransitionLogoIndex());
+}
+
 // Iniezione delle icone nel markup
 function createLocalIcons() {
   const iconNodes = document.querySelectorAll("[data-lucide]");
@@ -101,8 +196,10 @@ function setupPageTransition() {
     return;
   }
 
+  restoreTransitionLogo(transitionLogo);
+
   transitionLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
+    link.addEventListener("click", async (event) => {
       const url = link.getAttribute("href");
       const currentPath = window.location.pathname.split("/").pop() || "index.html";
 
@@ -118,7 +215,13 @@ function setupPageTransition() {
 
       document.body.classList.remove("menu-open");
       document.body.classList.add("is-transitioning");
-      sessionStorage.setItem("pageTransitionPending", "true");
+      const activeLogoIndex = getNextTransitionLogoIndex();
+
+      setTransitionLogo(transitionLogo, activeLogoIndex);
+      sessionStorage.setItem(transitionStorageKeys.pending, "true");
+      sessionStorage.setItem(transitionStorageKeys.activeLogoIndex, String(activeLogoIndex));
+      setNextTransitionLogoIndex(activeLogoIndex + 1);
+      await waitForTransitionLogo(transitionLogo);
       transitionOverlay.setAttribute("aria-hidden", "false");
       transitionOverlay.classList.add("is-active");
 
@@ -141,23 +244,29 @@ function setupPageTransition() {
 }
 
 // Chiusura dell'overlay sulla pagina di arrivo
-function finishPendingPageTransition() {
+async function finishPendingPageTransition() {
   const transitionOverlay = document.querySelector("[data-page-transition]");
 
-  if (!transitionOverlay || !sessionStorage.getItem("pageTransitionPending")) {
+  if (!transitionOverlay || !sessionStorage.getItem(transitionStorageKeys.pending)) {
     return;
   }
+
+  const transitionLogo = transitionOverlay.querySelector(".page-transition__logo");
+
+  restoreTransitionLogo(transitionLogo);
 
   document.body.classList.add("is-transitioning");
   transitionOverlay.setAttribute("aria-hidden", "false");
   transitionOverlay.classList.add("is-active");
+  await waitForTransitionLogo(transitionLogo);
   document.documentElement.classList.remove("is-loading-transition");
 
   const closeTransition = () => {
     transitionOverlay.classList.remove("is-active");
     transitionOverlay.setAttribute("aria-hidden", "true");
     document.body.classList.remove("is-transitioning");
-    sessionStorage.removeItem("pageTransitionPending");
+    sessionStorage.removeItem(transitionStorageKeys.pending);
+    sessionStorage.removeItem(transitionStorageKeys.activeLogoIndex);
   };
 
   window.requestAnimationFrame(() => {
@@ -310,13 +419,41 @@ function setupGiftStack() {
   });
 }
 
-// Flip delle carte memory desktop lista nozze
+// Flip delle carte memory lista nozze
 function setupGiftMemory() {
   const memoryCarousels = Array.from(document.querySelectorAll("[data-memory-carousel]"));
+  const standaloneMemoryGroups = Array.from(document.querySelectorAll(".gift-memory-mobile")).map((group) =>
+    Array.from(group.querySelectorAll("[data-memory-card]"))
+  );
 
-  if (!memoryCarousels.length) {
+  if (!memoryCarousels.length && !standaloneMemoryGroups.length) {
     return;
   }
+
+  const resetCards = (cards) => {
+    cards.forEach((card) => {
+      card.classList.remove("is-flipped");
+      card.setAttribute("aria-pressed", "false");
+    });
+  };
+
+  const setupSingleOpenMemory = (cards) => {
+    cards.forEach((card) => {
+      card.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const wasFlipped = card.classList.contains("is-flipped");
+        resetCards(cards);
+
+        if (!wasFlipped) {
+          card.classList.add("is-flipped");
+          card.setAttribute("aria-pressed", "true");
+        }
+      });
+    });
+  };
+
+  standaloneMemoryGroups.forEach(setupSingleOpenMemory);
 
   memoryCarousels.forEach((carousel) => {
     const pages = Array.from(carousel.querySelectorAll("[data-memory-page]"));
@@ -336,13 +473,6 @@ function setupGiftMemory() {
       pages.findIndex((page) => page.classList.contains("is-active"))
     );
 
-    const resetCards = () => {
-      memoryCards.forEach((card) => {
-        card.classList.remove("is-flipped");
-        card.setAttribute("aria-pressed", "false");
-      });
-    };
-
     const setControlsDisabled = (isDisabled) => {
       prevButton.disabled = isDisabled;
       nextButton.disabled = isDisabled;
@@ -355,7 +485,7 @@ function setupGiftMemory() {
         return;
       }
 
-      resetCards();
+      resetCards(memoryCards);
       carousel.dataset.memoryDirection = direction;
 
       if (!animate) {
@@ -394,12 +524,7 @@ function setupGiftMemory() {
       transitionTimer = window.setTimeout(finishTransition, transitionDuration);
     };
 
-    memoryCards.forEach((card) => {
-      card.addEventListener("click", () => {
-        const isFlipped = card.classList.toggle("is-flipped");
-        card.setAttribute("aria-pressed", String(isFlipped));
-      });
-    });
+    setupSingleOpenMemory(memoryCards);
 
     prevButton.addEventListener("click", () => {
       showPage(activeIndex - 1, "prev");
@@ -410,6 +535,14 @@ function setupGiftMemory() {
     });
 
     showPage(activeIndex, "next", false);
+  });
+
+  document.addEventListener("click", () => {
+    standaloneMemoryGroups.forEach(resetCards);
+
+    memoryCarousels.forEach((carousel) => {
+      resetCards(Array.from(carousel.querySelectorAll("[data-memory-card]")));
+    });
   });
 }
 

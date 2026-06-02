@@ -342,6 +342,10 @@ p {
   pointer-events: auto;
 }
 
+.is-loading-transition .page-transition__logo {
+  visibility: hidden;
+}
+
 .page-transition__logo.is-spinning {
   animation: logo-spin 0.9s linear 1;
 }
@@ -398,10 +402,16 @@ p {
 .home-video {
   width: 100%;
   height: min(44vh, calc(100vw - 1rem));
-  background: #111111;
+  background: var(--color-background);
   display: grid;
   place-items: center;
   overflow: hidden;
+}
+
+.home-video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .home-video span {
@@ -422,6 +432,12 @@ p {
 .ceremony-date,
 .reception-date {
   text-transform: none;
+}
+
+.home-date span + span,
+.ceremony-date span + span,
+.reception-date span + span {
+  margin-top: 5px;
 }
 
 .reception-map-link {
@@ -458,10 +474,13 @@ p {
   display: none;
 }
 
+.gift-desktop-transfer {
+  display: none;
+}
+
 .gift-desktop-title {
   color: inherit;
   text-decoration: none;
-  cursor: pointer;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(3.25rem, 10vw, 7rem);
@@ -501,8 +520,32 @@ p {
 
 .gift-desktop-photo {
   width: 100%;
-  min-height: 22rem;
-  background: #111111;
+  height: auto;
+}
+
+.gift-desktop-brand {
+  display: inline-flex;
+  justify-self: center;
+}
+
+.gift-desktop-list-access {
+  display: none;
+  text-align: center;
+}
+
+.gift-desktop-brand img {
+  width: min(34vw, 13rem);
+}
+
+.gift-desktop-transfer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.gift-desktop-transfer p {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.4;
 }
 
 .gift-memory-desktop {
@@ -578,10 +621,31 @@ p {
   display: block;
 }
 
+.gift-memory-card__logo--gizzi {
+  width: min(43.7%, 7.475rem);
+}
+
 .gift-memory-card__placeholder {
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 2vw, 2.2rem);
   letter-spacing: 0.16em;
+}
+
+.gift-memory-card__image {
+  width: 76.5%;
+  height: 76.5%;
+  display: block;
+  object-fit: contain;
+}
+
+.gift-memory-card__image--parapendio {
+  width: 61.2%;
+  height: 61.2%;
+}
+
+.gift-memory-card__image--cassetta {
+  width: 63.1125%;
+  height: 63.1125%;
 }
 
 .gift-memory-controls {
@@ -668,6 +732,11 @@ p {
 }
 
 .gift-mobile-intro {
+  display: none;
+}
+
+.gift-memory-mobile,
+.gift-mobile-transfer {
   display: none;
 }
 
@@ -1010,8 +1079,11 @@ p {
   }
 
   .home-hero {
+    --home-image-offset: 0rem;
+    --home-shell-bottom: 1.25rem;
+    --home-image-height: calc(100dvh - 5.6rem - var(--home-shell-bottom) - var(--home-image-offset));
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr auto;
     column-gap: 1rem;
     row-gap: 1.5rem;
   }
@@ -1024,91 +1096,116 @@ p {
     white-space: nowrap;
     line-height: 0.84;
     word-spacing: 0.18em;
+    z-index: 2;
   }
 
   .home-date--desktop {
     grid-column: 1 / span 3;
-    grid-row: 2;
+    grid-row: 1 / span 3;
     display: block;
-    align-self: start;
+    align-self: end;
     font-size: clamp(2.3rem, 3.45vw, 3.45rem);
     line-height: 0.84;
+    z-index: 2;
   }
 
   .home-video {
     grid-column: 4 / -1;
-    grid-row: 2 / span 2;
+    grid-row: 1 / span 3;
     align-self: start;
-    justify-self: stretch;
-    width: 100%;
-    height: min(58vh, 34rem);
-    margin-top: 0.72rem;
+    justify-self: end;
+    width: min(100%, calc(max(22rem, var(--home-image-height)) * 0.75));
+    height: max(22rem, var(--home-image-height));
+    margin-top: var(--home-image-offset);
+    z-index: 1;
   }
 
   .home-date--mobile {
     display: none;
   }
 
+  .ceremony-hero {
+    --ceremony-title-size: clamp(5.5rem, 8.2vw, 8.2rem);
+    --ceremony-title-leading: 0.84;
+    --ceremony-image-offset: 0rem;
+    --ceremony-image-size: calc(100dvh - 5.6rem - var(--ceremony-shell-bottom) - var(--ceremony-image-offset));
+    --ceremony-shell-bottom: 1.25rem;
+  }
+
   .ceremony-title {
     grid-column: 1 / -1;
     grid-row: 1;
     max-width: none;
-    font-size: clamp(5.5rem, 8.2vw, 8.2rem);
+    font-size: var(--ceremony-title-size);
     line-height: 0.84;
     white-space: normal;
     word-spacing: 0.18em;
+    z-index: 2;
   }
 
   .ceremony-date--desktop {
     grid-column: 1 / span 3;
-    grid-row: 2;
+    grid-row: 1 / span 3;
     display: block;
-    align-self: start;
+    align-self: end;
     font-size: clamp(2.3rem, 3.45vw, 3.45rem);
     line-height: 0.84;
+    z-index: 2;
   }
 
   .ceremony-video {
     grid-column: 4 / -1;
-    grid-row: 2 / span 2;
+    grid-row: 1 / span 3;
     align-self: start;
-    justify-self: stretch;
-    width: 100%;
-    height: min(58vh, 34rem);
-    margin-top: 0.72rem;
+    justify-self: end;
+    width: min(100%, max(24rem, var(--ceremony-image-size)));
+    height: max(24rem, var(--ceremony-image-size));
+    margin-top: var(--ceremony-image-offset);
+    z-index: 1;
   }
 
   .ceremony-date--mobile {
     display: none;
   }
 
+  .reception-hero {
+    --reception-title-size: clamp(4.7rem, 7vw, 7rem);
+    --reception-title-leading: 0.84;
+    --reception-image-offset: 0rem;
+    --reception-shell-bottom: 1.25rem;
+    --reception-image-height: calc(100dvh - 5.6rem - var(--reception-shell-bottom) - var(--reception-image-offset));
+  }
+
   .reception-title {
     grid-column: 1 / -1;
     grid-row: 1;
     max-width: none;
-    font-size: clamp(4.7rem, 7vw, 7rem);
+    font-size: var(--reception-title-size);
     line-height: 0.84;
     white-space: normal;
     word-spacing: 0.12em;
+    z-index: 2;
   }
 
   .reception-date--desktop {
     grid-column: 1 / span 3;
-    grid-row: 2;
+    grid-row: 1 / span 3;
     display: block;
-    align-self: start;
+    align-self: end;
     font-size: clamp(2.3rem, 3.45vw, 3.45rem);
     line-height: 0.84;
+    z-index: 2;
   }
 
   .reception-video {
     grid-column: 4 / -1;
-    grid-row: 2 / span 2;
+    grid-row: 1 / span 3;
     align-self: start;
-    justify-self: stretch;
-    width: 100%;
-    height: min(58vh, 34rem);
-    margin-top: 0.72rem;
+    justify-self: end;
+    width: min(100%, calc(max(22rem, var(--reception-image-height)) * 1.5));
+    height: max(22rem, var(--reception-image-height));
+    margin-top: var(--reception-image-offset);
+    z-index: 1;
   }
 
   .reception-date--mobile {
@@ -1116,69 +1213,105 @@ p {
   }
 
   .gift-shell {
+    --gift-subtitle-size: clamp(1.3175rem, 1.9975vw, 1.9975rem);
+    --gift-subtitle-leading: 1.02;
+    --gift-section-gap: clamp(2.6rem, 5vw, 4.6rem);
     width: var(--page-width);
     padding-top: 5.6rem;
     padding-bottom: 3rem;
   }
 
   .gift-desktop-hero {
-    --gift-photo-height: min(58vh, 36rem);
+    --gift-title-size: clamp(5.5rem, 8.2vw, 8.2rem);
+    --gift-title-leading: 0.84;
+    --gift-image-offset: 0rem;
+    --gift-shell-top: 5.6rem;
+    --gift-shell-bottom: 1.25rem;
+    --gift-image-height: calc(100dvh - var(--gift-shell-top) - var(--gift-shell-bottom) - var(--gift-image-offset));
+    --gift-image-width: calc(max(24rem, var(--gift-image-height)) * 0.75);
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: auto auto auto auto;
-    row-gap: 1.7rem;
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr) minmax(24rem, var(--gift-image-width));
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    column-gap: 1rem;
+    row-gap: 1.5rem;
   }
 
   .gift-desktop-copy {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: start;
     display: contents;
   }
 
   .gift-desktop-title {
-    grid-column: 1 / span 4;
+    grid-column: 1 / -1;
     grid-row: 1;
-    font-size: clamp(5rem, 7.8vw, 7.6rem);
+    justify-self: start;
+    max-width: none;
+    font-size: var(--gift-title-size);
     line-height: 0.84;
-  }
-
-  .gift-desktop-meta {
-    grid-column: 1 / span 4;
-    grid-row: 2;
-    align-self: start;
-  }
-
-  .gift-desktop-meta p {
-    font-size: clamp(2.3rem, 3.45vw, 3.45rem);
-    line-height: 0.88;
+    white-space: nowrap;
+    word-spacing: 0.18em;
+    z-index: 2;
   }
 
   .gift-desktop-notes {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 0.8rem;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: end;
+    justify-self: stretch;
+    width: auto;
+    margin-top: 0;
+    text-align: left;
+    z-index: 2;
   }
 
   .gift-desktop-notes p {
-    font-size: 1.35rem;
-    line-height: 1.42;
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
     white-space: normal;
   }
 
-  .gift-desktop-photo {
-    grid-column: 5 / -1;
-    grid-row: 2 / span 2;
-    align-self: start;
-    width: 100%;
-    height: var(--gift-photo-height);
-    margin-top: 0;
+  .gift-desktop-notes p + p {
+    margin-top: 0.35em;
   }
 
-  .gift-desktop-notes {
+  .gift-desktop-photo {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    justify-self: stretch;
+    width: 100%;
+    height: max(24rem, var(--gift-image-height));
+    margin-top: var(--gift-image-offset);
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .gift-desktop-brand {
     grid-column: 1 / -1;
-    grid-row: 4;
-    max-width: 100%;
-    min-width: 0;
+    grid-row: 3;
+    margin-top: var(--gift-section-gap);
+  }
+
+  .gift-desktop-brand img {
+    width: min(56vw, 24rem);
+  }
+
+  .gift-desktop-list-access {
+    grid-column: 1 / -1;
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    margin-top: 0;
+    margin-bottom: var(--gift-section-gap);
+  }
+
+  .gift-desktop-list-access p {
+    font-family: var(--font-display);
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
   }
 
   .gift-mobile-intro,
@@ -1189,7 +1322,23 @@ p {
   .gift-memory-desktop {
     display: block;
     width: 100%;
-    margin-top: clamp(2.4rem, 5vw, 4.2rem);
+    margin-top: 0;
+    margin-bottom: var(--gift-section-gap);
+  }
+
+  .gift-memory-controls {
+    display: none;
+  }
+
+  .gift-desktop-transfer {
+    display: grid;
+    gap: 5px;
+    margin-top: 32px;
+  }
+
+  .gift-desktop-transfer p {
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
   }
 
   .gift-memory-page.is-active,
@@ -1242,8 +1391,11 @@ p {
   }
 
   .home-hero {
+    --home-image-offset: 0rem;
+    --home-shell-bottom: 0.9rem;
+    --home-image-height: calc(100dvh - 5.6rem - var(--home-shell-bottom) - var(--home-image-offset));
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto 1fr auto;
     row-gap: 1.3rem;
   }
 
@@ -1254,27 +1406,39 @@ p {
     line-height: 0.88;
     white-space: nowrap;
     word-spacing: 0.14em;
+    z-index: 2;
   }
 
   .home-date--desktop {
     grid-column: 1 / span 4;
-    grid-row: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
     font-size: clamp(1.8rem, 3.1vw, 2.75rem);
     line-height: 0.88;
+    z-index: 2;
   }
 
   .home-video {
     grid-column: 5 / -1;
-    grid-row: 2 / span 2;
-    width: 100%;
-    height: min(46vh, 26rem);
-    margin-top: 0.6rem;
+    grid-row: 1 / span 3;
+    justify-self: end;
+    width: min(100%, calc(max(18rem, var(--home-image-height)) * 0.75));
+    height: max(18rem, var(--home-image-height));
+    margin-top: var(--home-image-offset);
+  }
+
+  .ceremony-hero {
+    --ceremony-title-size: clamp(4.3rem, 7.4vw, 6.6rem);
+    --ceremony-title-leading: 0.88;
+    --ceremony-image-offset: 0rem;
+    --ceremony-image-size: calc(100dvh - 5.6rem - var(--ceremony-shell-bottom) - var(--ceremony-image-offset));
+    --ceremony-shell-bottom: 0.9rem;
   }
 
   .ceremony-title {
     grid-column: 1 / -1;
     grid-row: 1;
-    font-size: clamp(4.3rem, 7.4vw, 6.6rem);
+    font-size: var(--ceremony-title-size);
     line-height: 0.88;
     white-space: normal;
     word-spacing: 0.14em;
@@ -1282,113 +1446,123 @@ p {
 
   .ceremony-date--desktop {
     grid-column: 1 / span 4;
-    grid-row: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
     font-size: clamp(1.8rem, 3.1vw, 2.75rem);
     line-height: 0.88;
+    z-index: 2;
   }
 
   .ceremony-video {
     grid-column: 5 / -1;
-    grid-row: 2 / span 2;
-    width: 100%;
-    height: min(46vh, 26rem);
-    margin-top: 0.6rem;
+    grid-row: 1 / span 3;
+    justify-self: end;
+    width: min(100%, max(20rem, var(--ceremony-image-size)));
+    height: max(20rem, var(--ceremony-image-size));
+    margin-top: var(--ceremony-image-offset);
+  }
+
+  .reception-hero {
+    --reception-title-size: clamp(4.3rem, 7.4vw, 6.6rem);
+    --reception-title-leading: 0.88;
+    --reception-image-offset: 0rem;
+    --reception-shell-bottom: 0.9rem;
+    --reception-image-height: calc(100dvh - 5.6rem - var(--reception-shell-bottom) - var(--reception-image-offset));
   }
 
   .reception-title {
     grid-column: 1 / -1;
     grid-row: 1;
-    font-size: clamp(4.3rem, 7.4vw, 6.6rem);
+    font-size: var(--reception-title-size);
     line-height: 0.88;
     white-space: normal;
     word-spacing: 0.14em;
+    z-index: 2;
   }
 
   .reception-date--desktop {
     grid-column: 1 / span 4;
-    grid-row: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
     font-size: clamp(1.8rem, 3.1vw, 2.75rem);
     line-height: 0.88;
+    z-index: 2;
   }
 
   .reception-video {
     grid-column: 5 / -1;
-    grid-row: 2 / span 2;
-    width: 100%;
-    height: min(46vh, 26rem);
-    margin-top: 0.6rem;
+    grid-row: 1 / span 3;
+    justify-self: end;
+    width: min(100%, calc(max(18rem, var(--reception-image-height)) * 1.5));
+    height: max(18rem, var(--reception-image-height));
+    margin-top: var(--reception-image-offset);
+    z-index: 1;
   }
 
   .gift-shell {
+    --gift-subtitle-size: clamp(1.0625rem, 1.7vw, 1.5725rem);
+    --gift-subtitle-leading: 1.05;
+    --gift-section-gap: clamp(2rem, 4vw, 3.2rem);
     padding-top: 5.6rem;
     padding-bottom: 2.5rem;
   }
 
   .gift-desktop-hero {
-    --gift-photo-height: min(46vh, 26rem);
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: auto auto auto auto;
-    row-gap: 1.35rem;
-    align-items: start;
+    --gift-title-size: clamp(4.3rem, 7.4vw, 6.6rem);
+    --gift-title-leading: 0.88;
+    --gift-shell-top: 5.6rem;
+    --gift-shell-bottom: 0.9rem;
+    --gift-image-width: calc(max(20rem, var(--gift-image-height)) * 0.75);
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, var(--gift-image-width));
+    row-gap: 1.3rem;
   }
 
   .gift-desktop-copy {
     display: contents;
   }
 
-  .gift-desktop-title {
-    grid-column: 1 / span 4;
-    grid-row: 1;
-    font-size: clamp(4.3rem, 7.4vw, 6.6rem);
-    line-height: 0.88;
-  }
-
-  .gift-desktop-meta {
-    grid-column: 1 / span 4;
-    grid-row: 2;
-    align-self: start;
-  }
-
-  .gift-desktop-meta p {
-    font-size: clamp(1.8rem, 3.1vw, 2.75rem);
-    line-height: 0.88;
-  }
-
   .gift-desktop-notes {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 0.65rem;
+    grid-column: 1;
+  }
+
+  .gift-desktop-title {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: start;
+    font-size: var(--gift-title-size);
+    line-height: 0.88;
+    white-space: nowrap;
+    word-spacing: 0.14em;
   }
 
   .gift-desktop-notes p {
-    font-size: 1.18rem;
-    line-height: 1.38;
-    white-space: normal;
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
   }
 
   .gift-desktop-photo {
-    grid-column: 5 / -1;
-    grid-row: 2 / span 2;
+    grid-column: 2;
     width: 100%;
-    height: var(--gift-photo-height);
-    margin-top: 0;
+    height: max(20rem, var(--gift-image-height));
   }
 
-  .gift-desktop-notes {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    max-width: 100%;
-    min-width: 0;
+  .gift-desktop-brand img {
+    width: min(52vw, 21rem);
   }
 
   .gift-memory-desktop {
-    margin-top: clamp(2rem, 4vw, 3.2rem);
+    margin-top: 0;
+    margin-bottom: var(--gift-section-gap);
   }
 
   .gift-memory-page.is-active,
   .gift-memory-page.is-exiting {
     gap: clamp(0.8rem, 1.6vw, 1.35rem);
+  }
+
+  .gift-desktop-transfer p {
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
   }
 
 }
@@ -1424,17 +1598,96 @@ p {
 
   .gift-mobile-intro {
     display: grid;
-    gap: 1.4rem;
-    margin-bottom: 1.25rem;
+    gap: 1.35rem;
+    margin-top: 0;
+    margin-bottom: 1.6rem;
   }
 
-  .gift-stack-mobile {
+  .gift-shell > .gift-mobile-intro {
+    margin-top: 0;
+  }
+
+  .gift-mobile-title {
+    max-width: none;
+    font-family: var(--font-display);
+    font-size: clamp(2.85rem, 10.6vw, 4.2rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    white-space: normal;
+    word-spacing: 0.08em;
+  }
+
+  .gift-mobile-photo {
+    display: block;
+    width: 100%;
+    align-self: start;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    background: var(--color-background);
+  }
+
+  .gift-mobile-panel--text {
+    gap: 0.45rem;
+    text-align: left;
+  }
+
+  .gift-mobile-panel--text p,
+  .gift-mobile-list-access p,
+  .gift-mobile-transfer p {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.08;
+  }
+
+  .gift-notes p:first-child {
+    margin-bottom: 0.65rem;
+  }
+
+  .gift-mobile-list-access {
     display: grid;
     justify-items: center;
-    padding-bottom: 1rem;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .gift-mobile-brand {
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .gift-mobile-brand img {
+    width: min(68vw, 18rem);
+  }
+
+  .gift-memory-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .gift-memory-mobile .gift-memory-card__inner {
+    aspect-ratio: 1.45 / 1;
+  }
+
+  .gift-mobile-transfer {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    text-align: center;
+    margin-top: 0;
   }
 
   .gift-memory-desktop {
+    display: none;
+  }
+
+  .gift-stack-mobile {
     display: none;
   }
 
@@ -1460,6 +1713,7 @@ p {
   }
 
   .home-hero {
+    min-height: 0;
     grid-template-rows: auto auto auto;
     gap: 0.9rem;
   }
@@ -1539,7 +1793,14 @@ p {
   }
 
   .home-video {
-    height: min(44vh, calc(100vw - 1rem));
+    align-self: start;
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+
+  .home-video img {
+    object-fit: contain;
+    object-position: center bottom;
   }
 
   .page-transition__logo {
