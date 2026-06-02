@@ -216,6 +216,14 @@ p {
   margin-left: auto;
 }
 
+.site-nav__toggle svg,
+.menu-panel__close svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+}
+
 /* Menu fullscreen */
 .menu-panel {
   position: fixed;
@@ -1813,6 +1821,26 @@ p {
   .home-video img {
     object-fit: cover;
     object-position: center center;
+  }
+
+  body[data-page="Home"] .home-shell {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  body[data-page="Home"] .home-video {
+    width: min(100%, 23rem);
+    height: auto;
+    justify-self: center;
+    overflow: visible;
+  }
+
+  body[data-page="Home"] .home-video img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center top;
   }
 
   .page-transition__logo {
