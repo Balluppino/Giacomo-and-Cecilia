@@ -1571,6 +1571,16 @@ p {
 @media (max-width: 719px) {
   .site-nav {
     width: var(--page-width);
+    z-index: 40;
+  }
+
+  .menu-panel {
+    z-index: 70;
+  }
+
+  .site-nav__toggle {
+    position: relative;
+    z-index: 2;
   }
 
   .menu-panel__nav {
@@ -1785,22 +1795,24 @@ p {
   }
 
   .reception-video {
-    height: min(44vh, calc(100vw - 1rem));
+    align-self: start;
+    height: min(40vh, calc((100vw - 1rem) * 0.66));
   }
 
   .ceremony-video {
-    height: min(44vh, calc(100vw - 1rem));
+    align-self: start;
+    height: min(40vh, calc(100vw - 1rem));
   }
 
   .home-video {
     align-self: start;
-    aspect-ratio: 3 / 4;
-    height: auto;
+    aspect-ratio: auto;
+    height: min(40vh, calc(100vw - 1rem));
   }
 
   .home-video img {
-    object-fit: contain;
-    object-position: center bottom;
+    object-fit: cover;
+    object-position: center center;
   }
 
   .page-transition__logo {
