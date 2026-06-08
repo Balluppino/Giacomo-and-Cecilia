@@ -385,6 +385,10 @@ p {
   width: min(28vw, 8rem);
 }
 
+.page-transition__logo--ceci {
+  width: min(26.6vw, 7.6rem);
+}
+
 .is-loading-transition .page-transition {
   opacity: 1;
   visibility: visible;
@@ -582,6 +586,10 @@ p {
   text-align: center;
 }
 
+.gift-desktop-memory-intro {
+  display: none;
+}
+
 .gift-desktop-brand img {
   width: min(34vw, 13rem);
 }
@@ -636,6 +644,7 @@ p {
   display: block;
   width: 100%;
   aspect-ratio: 1.45 / 1;
+  border-radius: 1rem;
   transform-style: preserve-3d;
   transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.16, 1);
 }
@@ -649,7 +658,9 @@ p {
   inset: 0;
   display: grid;
   place-items: center;
-  border: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-accent);
+  border-radius: 1rem;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -693,8 +704,8 @@ p {
 }
 
 .gift-memory-card__image--cassetta {
-  width: 63.1125%;
-  height: 63.1125%;
+  width: 69.4%;
+  height: 69.4%;
 }
 
 .gift-memory-controls {
@@ -786,6 +797,10 @@ p {
 
 .gift-memory-mobile,
 .gift-mobile-transfer {
+  display: none;
+}
+
+.gift-mobile-memory-intro {
   display: none;
 }
 
@@ -1265,6 +1280,7 @@ p {
     --gift-subtitle-size: clamp(1.3175rem, 1.9975vw, 1.9975rem);
     --gift-subtitle-leading: 1.02;
     --gift-section-gap: clamp(2.6rem, 5vw, 4.6rem);
+    --gift-flow-gap: clamp(1.35rem, 2vw, 1.95rem);
     width: var(--page-width);
     padding-top: 5.6rem;
     padding-bottom: 3rem;
@@ -1283,7 +1299,7 @@ p {
     grid-template-rows: auto 1fr auto;
     justify-items: center;
     column-gap: 1rem;
-    row-gap: 1.5rem;
+    row-gap: var(--gift-flow-gap);
   }
 
   .gift-desktop-copy {
@@ -1341,7 +1357,7 @@ p {
   .gift-desktop-brand {
     grid-column: 1 / -1;
     grid-row: 3;
-    margin-top: var(--gift-section-gap);
+    margin-top: 0;
   }
 
   .gift-desktop-brand img {
@@ -1354,10 +1370,24 @@ p {
     justify-items: center;
     gap: 5px;
     margin-top: 0;
-    margin-bottom: var(--gift-section-gap);
+    margin-bottom: 0;
   }
 
   .gift-desktop-list-access p {
+    font-family: var(--font-display);
+    font-size: var(--gift-subtitle-size);
+    line-height: var(--gift-subtitle-leading);
+  }
+
+  .gift-desktop-memory-intro {
+    display: block;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .gift-desktop-memory-intro p {
     font-family: var(--font-display);
     font-size: var(--gift-subtitle-size);
     line-height: var(--gift-subtitle-leading);
@@ -1368,10 +1398,14 @@ p {
     display: none;
   }
 
+  .gift-shell > .gift-desktop-memory-intro {
+    margin-top: var(--gift-flow-gap);
+  }
+
   .gift-memory-desktop {
     display: block;
     width: 100%;
-    margin-top: 0;
+    margin-top: var(--gift-flow-gap);
     margin-bottom: var(--gift-section-gap);
   }
 
@@ -1650,6 +1684,7 @@ p {
   }
 
   .gift-shell {
+    --gift-flow-gap: 1.15rem;
     width: var(--page-width);
     padding-top: 6rem;
     padding-bottom: 2rem;
@@ -1657,7 +1692,7 @@ p {
 
   .gift-mobile-intro {
     display: grid;
-    gap: 1.35rem;
+    gap: var(--gift-flow-gap);
     margin-top: 0;
     margin-bottom: 1.6rem;
   }
@@ -1713,10 +1748,23 @@ p {
     text-align: center;
   }
 
+  .gift-mobile-memory-intro {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .gift-mobile-memory-intro p {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.08;
+  }
+
   .gift-mobile-brand {
     display: inline-flex;
     justify-content: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--gift-flow-gap);
   }
 
   .gift-mobile-brand img {
@@ -1728,6 +1776,14 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
     margin-bottom: 1.6rem;
+  }
+
+  .gift-shell > .gift-mobile-memory-intro {
+    margin-top: var(--gift-flow-gap);
+  }
+
+  .gift-shell > .gift-memory-mobile {
+    margin-top: var(--gift-flow-gap);
   }
 
   .gift-memory-mobile .gift-memory-card__inner {
@@ -1894,5 +1950,9 @@ p {
 
   .page-transition__logo {
     width: min(36vw, 7rem);
+  }
+
+  .page-transition__logo--ceci {
+    width: min(34.2vw, 6.65rem);
   }
 }

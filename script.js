@@ -19,10 +19,12 @@ const transitionLogos = [
   {
     src: "logo_gizzi.png",
     alt: "Logo Gizzi",
+    modifierClass: "",
   },
   {
     src: "logo ceci 2.png",
     alt: "Logo Ceci",
+    modifierClass: "page-transition__logo--ceci",
   },
 ];
 
@@ -60,6 +62,7 @@ function setTransitionLogo(logoElement, logoIndex) {
 
   logoElement.src = logoConfig.src;
   logoElement.alt = logoConfig.alt;
+  logoElement.classList.toggle("page-transition__logo--ceci", logoConfig.modifierClass === "page-transition__logo--ceci");
 
   return normalizedIndex;
 }
