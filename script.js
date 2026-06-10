@@ -464,7 +464,22 @@ function setupGiftMemory() {
     const prevButton = carousel.querySelector("[data-memory-prev]");
     const nextButton = carousel.querySelector("[data-memory-next]");
 
-    if (!pages.length || !memoryCards.length || !prevButton || !nextButton) {
+    if (!pages.length || !memoryCards.length) {
+      return;
+    }
+
+    setupSingleOpenMemory(memoryCards);
+
+    if (!prevButton || !nextButton || pages.length < 2) {
+      resetCards(memoryCards);
+
+      pages.forEach((page, pageIndex) => {
+        const isActive = pageIndex === 0;
+        page.classList.toggle("is-active", isActive);
+        page.classList.remove("is-entering", "is-exiting");
+        page.setAttribute("aria-hidden", String(!isActive));
+      });
+
       return;
     }
 
@@ -526,8 +541,6 @@ function setupGiftMemory() {
       window.clearTimeout(transitionTimer);
       transitionTimer = window.setTimeout(finishTransition, transitionDuration);
     };
-
-    setupSingleOpenMemory(memoryCards);
 
     prevButton.addEventListener("click", () => {
       showPage(activeIndex - 1, "prev");

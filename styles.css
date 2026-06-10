@@ -708,6 +708,11 @@ p {
   height: 69.4%;
 }
 
+.gift-memory-card__image--viaggio {
+  width: 84.15%;
+  height: 84.15%;
+}
+
 .gift-memory-controls {
   display: flex;
   align-items: center;
